@@ -1,47 +1,51 @@
-# 🎓 Personalized Learning Hub (Kişiselleştirilmiş Öğrenme Platformu)
+# 🎓 Personalized Learning Hub: Full-Stack Educational Platform
 
-Bu proje, eğitim merkezlerinin öğrenci, eğitmen ve yönetim süreçlerini dijitalleştirmek ve optimize etmek amacıyla geliştirilmiş tam kapsamlı (full-stack) bir web uygulamasıdır. 
+Bu proje, öğrencileri ve eğitmenleri dijital ortamda bir araya getiren; oturum rezervasyonu, gelişim takibi, materyal paylaşımı ve rol tabanlı yönetim modüllerine sahip kapsamlı bir **Full-Stack Web Uygulamasıdır**. 
 
-## 🚀 Proje Hakkında
+Proje, hem Frontend hem de Backend süreçlerinin tek bir çatı altında (Monorepo) profesyonel yazılım mühendisliği pratikleriyle (Clean Code, N-Tier Architecture) yönetildiği bir mimariye sahiptir.
 
-Uygulama; öğrencilerin kendilerine uygun eğitmenlerle eşleşmesini, ders programlarını yönetmesini ve gelişimlerini takip etmesini sağlarken; eğitmenlere kaynak yönetimi, yöneticilere ise tüm sistemin denetimi için güçlü araçlar sunar.
+---
 
-### Öne Çıkan Teknik Özellikler:
-- **Backend:** Spring Boot kullanılarak **Katmanlı Mimari (Layered Architecture)** prensiplerine uygun geliştirilmiştir (Controller, Service, Repository, DTO, Mapper).
-- **Frontend:** Modüler bileşen yapısı ve merkezi state yönetimi ile **React.js** kullanılarak inşa edilmiştir.
-- **Veritabanı:** İlişkisel veri modellemesi için **PostgreSQL** tercih edilmiştir.
-- **Güvenlik:** Rol tabanlı erişim kontrolü (Student, Tutor, Admin) için özelleştirilmiş **Spring Security** yapılandırması mevcuttur.
-- **Kalite Güvencesi:** İş mantığının (business logic) doğruluğunu sağlamak adına tüm ana servisler için **JUnit 5 ve Mockito** kullanılarak **Unit Testler** yazılmıştır.
+## 🏗️ Sistem Mimarisi ve Mühendislik Yaklaşımı
 
-## 🛠️ Kullanılan Teknolojiler
+Sistem, veri güvenliğini ve UI performansını maksimize etmek için iki bağımsız modül olarak tasarlanmıştır:
 
-- **Backend:** Java 17, Spring Boot, Spring Data JPA, Spring Security, MapStruct, Maven.
-- **Frontend:** React, React Router, Axios, CSS Modules.
-- **Veritabanı:** PostgreSQL.
-- **Test:** JUnit 5, Mockito.
+* **Backend (Spring Boot):** Katmanlı mimari (Controller-Service-Repository) kullanılarak inşa edilmiştir. Veritabanı Entity'leri doğrudan dışarı açılmamış; veri transferi ve validasyonlar tamamen **DTO (Data Transfer Object)** ve Mapper katmanları üzerinden sağlanmıştır.
+* **Frontend (React.js):** Modern SPA (Single Page Application) mimarisiyle geliştirilmiştir. Global durum yönetimi için `Context API`, ağ istekleri için merkezi `Axios` interceptor'ları ve rol tabanlı yetkilendirme için "Protected Routes" kurgulanmıştır.
 
-## ✨ Temel Özellikler
+---
 
-- **Kişiselleştirilmiş Paneller:** Öğrenci, Eğitmen ve Admin rolleri için özelleşmiş kullanıcı arayüzleri.
-- **Ders Yönetimi:** Akıllı ders rezervasyonu, müsaitlik takibi ve otomatik eğitmen atama sistemi.
-- **Gelişim Takibi:** Görsel ilerleme raporları ve yetkinlik değerlendirmeleri (Skill Assessment).
-- **Kaynak Kütüphanesi:** Eğitim materyallerinin paylaşımı ve ödev yönetim merkezi.
-- **Akıllı Bildirimler:** Devamsızlık uyarıları ve sistem bildirimleri ile idari verimlilik.
+## 🌟 Temel Modüller (Role-Based Access Control)
 
-## 📂 Proje Yapısı
+Sistem; Öğrenci, Eğitmen ve Admin olmak üzere 3 farklı yetkilendirme seviyesine ve özel arayüzlere (Layouts) sahiptir:
 
-```text
-├── personalized-learning-hub-backend           # Spring Boot REST API
-└── personalized_learning_hub_frontend_react    # React Single Page Application (SPA)
-⚙️ Kurulum ve Çalıştırma
-Backend
-src/main/resources/application.properties dosyasındaki veritabanı ayarlarını yapın.
+### 👨‍🎓 Öğrenci Paneli (Student)
+* **Session Booking:** Eğitmenlerin müsaitlik (availability) takvimlerine göre birebir ders rezervasyonu oluşturma.
+* **Skill Assessment & Progress:** Yetenek testlerine katılma ve kişisel gelişim sürecini grafiksel arayüzlerle takip etme.
+* **Resource Library:** Eğitmenler tarafından paylaşılan ders materyallerine (PDF, PPTX) erişim ve indirme.
 
-./mvnw spring-boot:run komutu ile uygulamayı başlatın.
+### 👩‍🏫 Eğitmen Paneli (Tutor)
+* **Availability Management:** Takvim üzerinden müsaitlik saatlerini dinamik olarak belirleme.
+* **Student Tracking:** Atanan öğrencilerin (Assigned Students) gelişimlerini izleme ve oturum taleplerini değerlendirme.
+* **File Management:** Güvenli dosya yükleme servisi (FileStorageService) aracılığıyla sisteme sunum ve döküman yükleyip belirli öğrencilerle paylaşma.
 
-Frontend
-cd personalized_learning_hub_frontend_react
+### 🛡️ Yönetici Paneli (Admin)
+* **User Management:** Sistemdeki tüm kullanıcıların (Öğrenci/Eğitmen) rol ve hesap yönetimi.
+* **System Monitoring:** Ödeme akışlarının (Payments), sistem ayarlarının ve yoklama uyarılarının (Attendance Alerts) merkezi olarak denetlenmesi.
 
-npm install
+---
 
-npm start
+## 🛠️ Teknoloji Yığını (Tech Stack)
+
+**Backend:**
+* Java 17+, Spring Boot
+* Spring Security & JWT (Kimlik Doğrulama)
+* Spring Data JPA & Hibernate
+* Maven
+
+**Frontend:**
+* React.js (Hooks & JSX)
+* React Router DOM (Role-Based Routing)
+* Context API (Global State Management)
+* Axios (HTTP Client)
+
